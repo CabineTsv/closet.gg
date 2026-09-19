@@ -1,4 +1,4 @@
--- Leng
+-- Lengers
 getgenv().GG = {
     Language = {
         CheckboxEnabled = "Enabled",
@@ -7728,7 +7728,7 @@ Library.create_settings_tab = function(self)
 			activeWatermark = nil;
 		end
 	end});
-	local CfgMod = SettingsTab:create_module({title="Config",description="Save, load, manage configs",flag="_stg_cfg",section="right",callback=function()
+	local CfgMod = SettingsTab:create_module({title="Config",description="Save, load, and manage configs",flag="_stg_cfg",section="right",callback=function()
 	end});
 	CfgMod:create_textbox({title="Config Name",flag="_cfgName",placeholder=tostring(game.PlaceId),callback=function()
 	end});
@@ -7853,7 +7853,7 @@ Library.create_settings_tab = function(self)
 			return;
 		end
 		Config:save_named(dest, data);
-		Library.SendNotification({title="Duplicated",text=(src .. " â†’ " .. dest),duration=2.5,type="success"});
+		Library.SendNotification({title="Duplicated",text=(src .. " | " .. dest),duration=2.5,type="success"});
 		refreshCfgDropdown();
 	end});
 	CfgMod:create_divider({showtopic=true,title="Import / Export"});
@@ -7921,8 +7921,8 @@ Library.create_settings_tab = function(self)
 			end
 		end);
 	end}}});
-	ServerMod:create_label({title="Note",text="Codes run through a public backend and are best-effort â€” they can fail if the server has since emptied or the code has expired."});
-	local NotifMod2 = SettingsTab:create_module({title="Notifications",description="Configure alert behavior",flag="_stg_notif",section="right",callback=function()
+	ServerMod:create_label({title="Note",text="Codes run through a public backend and are best-effort, they can fail if the server has since emptied or the code has expired."});
+	local NotifMod2 = SettingsTab:create_module({title="Notifications",description="Configure notifications",flag="_stg_notif",section="right",callback=function()
 	end});
 	NotifMod2:create_checkbox({title="Enable Notifications",flag="_notif_on",callback=function(state)
 		Library._notification_settings.enabled = state;
@@ -7959,7 +7959,7 @@ Library.create_settings_tab = function(self)
 	LanguageMod:create_dropdown({title="UI Language",flag="TranslateLanguage",options=LanguageOrder,multi_dropdown=false,maximum_options=#LanguageOrder,callback=function(name)
 		lib:set_translation(name);
 		if (name ~= "English") then
-			Library.SendNotification({title=("Language Â· " .. name),text="Translating interface, this can take a moment.",duration=3,type="info"});
+			Library.SendNotification({title=("Language: " .. name),text="Translating interface, this can take a moment.",duration=3,type="info"});
 		end
 	end});
 	LanguageMod:create_label({title="Note",text="Translations are fetched live and cached per phrase, so the first pass after switching is the slowest."});
@@ -7967,7 +7967,7 @@ Library.create_settings_tab = function(self)
 	end});
 	SearchInfoMod:create_status({title="Search Engine",status="Enabled",text="Active"});
 	SearchInfoMod:create_label({title="Keyboard Shortcuts",text="Ctrl + F  â€”  Open / close\nEscape     â€”  Close\nClick result  â€”  Jump to element"});
-	SearchInfoMod:create_label({title="What It Searches",text="Tabs Â· Modules Â· Labels Â· Buttons Â· Checkboxes Â· Sliders Â· Dropdowns Â· Color pickers Â· Keybinds Â· Multi-dropdowns Â· Progress bars Â· Status indicators Â· Button groups Â· Images"});
+	SearchInfoMod:create_label({title="What It Searches",text="Tabs, Modules, Labels, Buttons, Checkboxes, Sliders, Dropdowns, Color pickers, Keybinds, Multi-dropdowns, Progress bars, Status indicators, Button groups, Images"});
 	SearchInfoMod:create_button({buttonText="Open Search (Ctrl+F)",callback=function()
 		if lib.expand_search then
 			lib:expand_search();
