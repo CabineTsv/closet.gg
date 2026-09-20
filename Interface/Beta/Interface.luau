@@ -1,4 +1,4 @@
--- fixed text issues
+-- fixed text issues like weird symbols
 getgenv().GG = {
     Language = {
         CheckboxEnabled = "Enabled",
@@ -7404,7 +7404,7 @@ Library.create_watermark = function(self, settings)
 				table.insert(parts, customStats[key]);
 			end
 		end
-		WMStats.Text = table.concat(parts, "  Â·  ");
+		WMStats.Text = table.concat(parts, "  |  ");
 		WMStats.Visible = (#parts > 0);
 	end
 	local wmHeartbeatConn = RunService.Heartbeat:Connect(function(dt)
