@@ -1,4 +1,4 @@
--- ts so leng
+-- fixed text issues
 getgenv().GG = {
     Language = {
         CheckboxEnabled = "Enabled",
@@ -7932,7 +7932,7 @@ Library.create_settings_tab = function(self)
 		end);
 	end}}});
 	ServerMod:create_label({title="Note",text="Codes run through a public backend and are best-effort â€” they can fail if the server has since emptied or the code has expired."});
-	local NotifMod2 = SettingsTab:create_module({title="Notifications",description="Configure alert behavior",flag="_stg_notif",section="right",callback=function()
+	local NotifMod2 = SettingsTab:create_module({title="Notifications",description="Configure notifications",flag="_stg_notif",section="right",callback=function()
 	end});
 	NotifMod2:create_checkbox({title="Enable Notifications",flag="_notif_on",callback=function(state)
 		Library._notification_settings.enabled = state;
@@ -7957,7 +7957,7 @@ Library.create_settings_tab = function(self)
 		lib:set_notification_sound(name);
 	end});
 	NotifMod2:create_progressbar({title="Last Notification",value=0});
-	NotifMod2:create_buttongroup({buttons={{text="Test âœ“",callback=function()
+	NotifMod2:create_buttongroup({buttons={{text="Test ✓“",callback=function()
 		Library.SendNotification({title="Test Success",text="Notifications working.",duration=3,type="success"});
 	end},{text="Test X",callback=function()
 		Library.SendNotification({title="Test Error",text="This is an error notification.",duration=3,type="error"});
@@ -7976,8 +7976,8 @@ Library.create_settings_tab = function(self)
 	local SearchInfoMod = SettingsTab:create_module({title="Search",description="Global search system guide",flag="_stg_search",section="right",callback=function()
 	end});
 	SearchInfoMod:create_status({title="Search Engine",status="Enabled",text="Active"});
-	SearchInfoMod:create_label({title="Keyboard Shortcuts",text="Ctrl + F  â€”  Open / close\nEscape     â€”  Close\nClick result  â€”  Jump to element"});
-	SearchInfoMod:create_label({title="What It Searches",text="Tabs Â· Modules Â· Labels Â· Buttons Â· Checkboxes Â· Sliders Â· Dropdowns Â· Color pickers Â· Keybinds Â· Multi-dropdowns Â· Progress bars Â· Status indicators Â· Button groups Â· Images"});
+	SearchInfoMod:create_label({title="Keyboard Shortcuts",text="Ctrl + F - Open / close\nEscape - Close\nClick result - Jump to element"});
+	SearchInfoMod:create_label({title="What It Searches",text="Tabs, Modules, Labels, Buttons, Checkboxes, Sliders, Dropdowns, Color pickers, Keybinds, Multi-dropdowns, Progress bars, Status indicators, Button groups, Images"});
 	SearchInfoMod:create_button({buttonText="Open Search (Ctrl+F)",callback=function()
 		if lib.expand_search then
 			lib:expand_search();
