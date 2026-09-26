@@ -1,4 +1,4 @@
--- fixed text issues like weird symbols
+-- ugh
 getgenv().GG = {
     Language = {
         CheckboxEnabled = "Enabled",
@@ -4279,7 +4279,7 @@ Library.create_ui = function(self)
 			self:apply_theme(selected_theme);
 			local meta = ThemeMeta[selected_theme];
 			local desc = (meta and meta.desc) or selected_theme;
-			Library.SendNotification({title=("Theme Â· " .. selected_theme),text=desc,duration=2.5});
+			Library.SendNotification({title=("Theme · " .. selected_theme),text=desc,duration=2.5});
 		end});
 	end;
 	Connections['library_visiblity'] = UserInputService.InputBegan:Connect(function(input, process)
@@ -7404,7 +7404,7 @@ Library.create_watermark = function(self, settings)
 				table.insert(parts, customStats[key]);
 			end
 		end
-		WMStats.Text = table.concat(parts, "  |  ");
+		WMStats.Text = table.concat(parts, "  ·  ");
 		WMStats.Visible = (#parts > 0);
 	end
 	local wmHeartbeatConn = RunService.Heartbeat:Connect(function(dt)
@@ -7591,7 +7591,7 @@ Library.create_settings_tab = function(self)
 	ThemeMod:create_dropdown({title="Theme Preset",flag="SelectedTheme",options=presetNames,multi_dropdown=false,maximum_options=#presetNames,callback=function(name)
 		lib:apply_theme(name);
 		local meta = ThemeMeta[name];
-		Library.SendNotification({title=("Theme Â· " .. name),text=((meta and meta.desc) or name),duration=2,type="info"});
+		Library.SendNotification({title=("Theme · " .. name),text=((meta and meta.desc) or name),duration=2,type="info"});
 	end});
 	ThemeMod:create_divider({showtopic=true,title="Typography"});
 	local fontNames = {};
@@ -7607,7 +7607,7 @@ Library.create_settings_tab = function(self)
 		end);
 		if (ok and fontEnum) then
 			lib:set_ui_font(fontEnum);
-			Library.SendNotification({title=("Font Â· " .. name),text="UI font updated.",duration=2,type="info"});
+			Library.SendNotification({title=("Font · " .. name),text="UI font updated.",duration=2,type="info"});
 		end
 	end});
 	ThemeMod:create_divider({showtopic=true,title="Live Editor"});
@@ -7932,7 +7932,7 @@ Library.create_settings_tab = function(self)
 		end);
 	end}}});
 	ServerMod:create_label({title="Note",text="Codes run through a public backend and are best-effort â€” they can fail if the server has since emptied or the code has expired."});
-	local NotifMod2 = SettingsTab:create_module({title="Notifications",description="Configure notifications",flag="_stg_notif",section="right",callback=function()
+	local NotifMod2 = SettingsTab:create_module({title="Notifications",description="Configure alert behavior",flag="_stg_notif",section="right",callback=function()
 	end});
 	NotifMod2:create_checkbox({title="Enable Notifications",flag="_notif_on",callback=function(state)
 		Library._notification_settings.enabled = state;
@@ -7957,7 +7957,7 @@ Library.create_settings_tab = function(self)
 		lib:set_notification_sound(name);
 	end});
 	NotifMod2:create_progressbar({title="Last Notification",value=0});
-	NotifMod2:create_buttongroup({buttons={{text="Test ✓“",callback=function()
+	NotifMod2:create_buttongroup({buttons={{text="Test âœ“",callback=function()
 		Library.SendNotification({title="Test Success",text="Notifications working.",duration=3,type="success"});
 	end},{text="Test X",callback=function()
 		Library.SendNotification({title="Test Error",text="This is an error notification.",duration=3,type="error"});
@@ -7969,15 +7969,15 @@ Library.create_settings_tab = function(self)
 	LanguageMod:create_dropdown({title="UI Language",flag="TranslateLanguage",options=LanguageOrder,multi_dropdown=false,maximum_options=#LanguageOrder,callback=function(name)
 		lib:set_translation(name);
 		if (name ~= "English") then
-			Library.SendNotification({title=("Language Â· " .. name),text="Translating interface, this can take a moment.",duration=3,type="info"});
+			Library.SendNotification({title=("Language · " .. name),text="Translating interface, this can take a moment.",duration=3,type="info"});
 		end
 	end});
 	LanguageMod:create_label({title="Note",text="Translations are fetched live and cached per phrase, so the first pass after switching is the slowest."});
 	local SearchInfoMod = SettingsTab:create_module({title="Search",description="Global search system guide",flag="_stg_search",section="right",callback=function()
 	end});
 	SearchInfoMod:create_status({title="Search Engine",status="Enabled",text="Active"});
-	SearchInfoMod:create_label({title="Keyboard Shortcuts",text="Ctrl + F - Open / close\nEscape - Close\nClick result - Jump to element"});
-	SearchInfoMod:create_label({title="What It Searches",text="Tabs, Modules, Labels, Buttons, Checkboxes, Sliders, Dropdowns, Color pickers, Keybinds, Multi-dropdowns, Progress bars, Status indicators, Button groups, Images"});
+	SearchInfoMod:create_label({title="Keyboard Shortcuts",text="Ctrl + F  â€”  Open / close\nEscape     â€”  Close\nClick result  â€”  Jump to element"});
+	SearchInfoMod:create_label({title="What It Searches",text="Tabs · Modules · Labels · Buttons · Checkboxes · Sliders · Dropdowns · Color pickers · Keybinds · Multi-dropdowns · Progress bars · Status indicators · Button groups · Images"});
 	SearchInfoMod:create_button({buttonText="Open Search (Ctrl+F)",callback=function()
 		if lib.expand_search then
 			lib:expand_search();
@@ -8026,6 +8026,11 @@ Closet.CreateWindow = function(self, settings)
 	end
 	if settings.Language then
 		Library._config._flags['TranslateLanguage'] = settings.Language;
+	end
+	if settings.Font then
+		Library._config._flags['UIFont'] = settings.Font;
+	elseif not Library._config._flags['UIFont'] then
+		Library._config._flags['UIFont'] = "Arial";
 	end
 	if (settings.LoadingEnabled ~= nil) then
 		Library._config._flags['LoadingScreenEnabled'] = settings.LoadingEnabled;
